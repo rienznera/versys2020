@@ -1,6 +1,8 @@
 package messaging;
 
-public class Message {
+import java.io.Serializable;
+
+public class Message implements Serializable {
     private MessageType messageType;
     private int id;
     private int length;
