@@ -1,6 +1,7 @@
 package messaging;
 
 import java.io.Serializable;
+import java.util.Arrays;
 
 public class Message implements Serializable {
     private MessageType messageType;
@@ -45,5 +46,15 @@ public class Message implements Serializable {
 
     public void setData(byte[] data) {
         this.data = data;
+    }
+
+    @Override
+    public String toString() {
+        return "Message{" +
+                "messageType=" + messageType +
+                ", id=" + id +
+                ", length=" + length +
+                ", data=" + Arrays.toString(data) +
+                '}';
     }
 }
