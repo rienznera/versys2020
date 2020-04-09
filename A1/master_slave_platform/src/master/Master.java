@@ -14,17 +14,18 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
-public class Master extends Thread
+public class Master extends Thread implements Runnable
 {
     public static  int  SERVERPORT = 9001;
     private ServerSocket serverSocket;
+    private Socket socket;
     private int port;
     private boolean running = false;
     private List<Client> clients;
     private MessageType phase;
     private ObjectOutputStream oos;
     private ObjectInputStream ois;
-    private Socket socket;
+
 
     public Master( int port )
     {
@@ -39,6 +40,7 @@ public class Master extends Thread
         System.out.println("Start server on port: " + SERVERPORT );
 
         Master server = new Master( SERVERPORT );
+
         server.registerClients();
 
         // Automatically shutdown in 1 minute
@@ -60,56 +62,41 @@ public class Master extends Thread
 
     public void registerClients()
     {
-        try
-        {
+        try {
             this.setPhase(MessageType.INIT);
-            serverSocket = new ServerSocket( port );
-            //this.start();
-            running = true;
-            while( running )
-            {
-                try
-                {
-                    //Init Loop
-                    System.out.println( "Listening for a connection" );
+            serverSocket = new ServerSocket(port);
+            this.start();
+            Thread.sleep(60000);
+            this.stopListener();
 
-                    // Call accept() to receive the next connection
-                    socket = serverSocket.accept();
-
-                    // Pass the socket to the RequestHandler thread for processing
-                    // RequestHandler requestHandler = new RequestHandler( socket );
-                    //requestHandler.start();
-                    ois=new ObjectInputStream(socket.getInputStream());
-                    handleMessage((Message) ois.readObject()) ;
-
-                }
-                catch (IOException e )
-                {
-                    e.printStackTrace();
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        catch (IOException e)
+        }catch (IOException e)
         {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
 
+    private void stopListener() {
+        running = false;
+        this.interrupt();
+    }
+
     public void informClients(){
         this.setPhase(MessageType.EXE);
-
+       // this.start();
             try {
-               oos = new ObjectOutputStream(socket.getOutputStream());
-                for(int i = 0; i< clients.size(); i++){
 
+                for(int i = 0; i< clients.size(); i++){
+                    oos = new ObjectOutputStream(clients.get(i).getSocket().getOutputStream());
                     oos.writeObject(new Message(MessageType.EXE, clients.get(i).getId(),0,null ));
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+
+
 
 
     public void stopServer()
@@ -121,6 +108,7 @@ public class Master extends Thread
     @Override
     public void run()
     {
+        //run starts messageHandling
         running = true;
         while( running )
         {
@@ -148,11 +136,11 @@ public class Master extends Thread
         }
     }
 
-    private void handleMessage(Message message){
+    public void handleMessage(Message message){
         switch (this.phase) {
             case INIT:
                 if (message.getMessageType() == MessageType.INIT && message.getId() > 0){
-                    addClient(message.getId());
+                    addClient(message.getId(), socket);
                 }
                 break;
             case EXE:
@@ -167,9 +155,9 @@ public class Master extends Thread
         this.phase = phase;
     }
 
-    public void addClient(int id){
+    public void addClient(int id, Socket socket){
 
-            clients.add(new Client(MessageType.INIT, id));
+            clients.add(new Client(MessageType.INIT, id, socket));
             System.out.println("added client "+ id);
             if (clients.size()>=2){
                 stopServer();
