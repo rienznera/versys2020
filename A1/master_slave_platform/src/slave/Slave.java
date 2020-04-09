@@ -64,12 +64,12 @@ public class Slave {
 
             oout.close();
             s.close();
-        }catch(Exception e){System.out.println(e);}
+        }catch(Exception e){e.printStackTrace();}
     }
 
     private Message handleMessage(Message message) {
         Message ret = null;
-        System.out.println(message.toString());
+        System.out.println("handle: "+ message.toString());
     switch (message.getMessageType()){
         case EXE:
             try {
