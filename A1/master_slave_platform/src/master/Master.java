@@ -66,7 +66,7 @@ public class Master extends Thread implements Runnable
             this.setPhase(MessageType.INIT);
             serverSocket = new ServerSocket(port);
             this.start();
-            Thread.sleep(60000);
+            Thread.sleep(20000);
             this.stopListener();
 
         }catch (IOException e)
@@ -125,6 +125,7 @@ public class Master extends Thread implements Runnable
                 //requestHandler.start();
                  ois=new ObjectInputStream(socket.getInputStream());
                 handleMessage((Message) ois.readObject()) ;
+
 
             }
             catch (IOException e )
