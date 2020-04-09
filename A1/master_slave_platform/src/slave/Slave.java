@@ -15,6 +15,7 @@ public class Slave {
 
     public Slave(int id) {
         this.id = id;
+        active = true;
     }
 
     public void processMessage(Message message){
@@ -49,6 +50,8 @@ public class Slave {
             ObjectOutputStream oout=new ObjectOutputStream(s.getOutputStream());
             //Register Slave
             oout.writeObject(new Message(MessageType.INIT, slave.getId(), 0, null));
+            oout.flush();
+            //oout.close();
             ObjectInputStream oin = new ObjectInputStream(s.getInputStream());
 
             while(slave.isActive()){
@@ -61,12 +64,12 @@ public class Slave {
 
             oout.close();
             s.close();
-        }catch(Exception e){System.out.println(e);}
+        }catch(Exception e){e.printStackTrace();}
     }
 
     private Message handleMessage(Message message) {
         Message ret = null;
-        System.out.println(message.toString());
+        System.out.println("handle: "+ message.toString());
     switch (message.getMessageType()){
         case EXE:
             try {
