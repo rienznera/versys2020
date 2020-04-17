@@ -70,6 +70,7 @@ public class Client extends Thread{
             }
             catch (InterruptedIOException iioe)
             {
+                iioe.printStackTrace();
                 System.out.println ("Timeout occurred - killing connection");
                 m_connection.close();
                 server.removeClient(this);

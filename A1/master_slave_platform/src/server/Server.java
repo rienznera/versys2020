@@ -7,19 +7,21 @@ import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.StringTokenizer;
 
     public class Server  {
 
+        private static boolean active;
         private Socket m_connection;
         private static int number_of_connections = 0;
-        private static final int max_connections = 2;
+        public static final int max_connections = 2;
         public static final int service_port = 9056;
         public boolean finished = false;
         private static ArrayList<Socket> slaves = new ArrayList<Socket>();
-        public static final int timeout_length = 10000;
+        public static final int timeout_length = 100000000;
         private static HashMap<Integer, Client> clients = new HashMap<>();
         public Server(){}
         public Server (Socket connection) {
@@ -39,43 +41,43 @@ import java.util.StringTokenizer;
         }
 
 
+        public static int getNumber_of_connections() {
+            return number_of_connections;
+        }
 
-        public static void main(String args[]) throws Exception
+        public static void setNumber_of_connections(int number_of_connections) {
+            Server.number_of_connections = number_of_connections;
+        }
+
+        public static void main(String args[])
         {
-            ServerSocket serverSocket = new ServerSocket (service_port);
-            Server server = new Server();
-            //Connecting slaves
-            boolean active = true;
-            while (active) {
-                System.out.println("Waiting for slaves to connect...");
-                Socket connection = serverSocket.accept();
-                System.out.println("New slave connected");
-                if (number_of_connections > max_connections-1) {
-                    PrintStream pout = new PrintStream (connection.getOutputStream());
-                    pout.println ("Too many Slaves..");
-                    connection.close();
-                    active = false;
+            try {
+                ServerSocket serverSocket = new ServerSocket(service_port);
+                Server server = new Server();
+                //Connecting slaves
+
+                ConnectionListener cl = new ConnectionListener(serverSocket, server);
+                cl.start();
+                Thread.sleep(30000);
+                cl.interrupt();
+
+
+                //Send Work to Clients
+                server.sendExerciseToSlaves(10, 20);
+
+                while (!server.getFinished()) {
+                    Thread.sleep(1000);
                 }
-                else {
-                    Client client;
-                    client = new Client(server, connection);
-                    //clients.adclient);
-                    client.start();
-                    //slaves.add(connection);
-                }
+
+                //cleanup
+                System.out.println("Server is doing cleanup...");
+                server.cleanupConnections();
+                System.out.println("finished operations");
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-
-            //Send Work to Clients
-          server.sendExerciseToSlaves(10, 20);
-
-            while (!server.getFinished()){
-                Thread.sleep(1000);
-            }
-
-            //cleanup
-            System.out.println("Server is doing cleanup...");
-            server.cleanupConnections();
-            System.out.println("finished operations");
 
         }
 
@@ -123,5 +125,9 @@ import java.util.StringTokenizer;
                 System.out.println("SERVER: work is done !!");
             }
 
+        }
+
+        public void timeout() {
+            active = false;
         }
     }
