@@ -28,7 +28,7 @@ public class Slave {
             oout.flush();
            // ObjectInputStream oin = new ObjectInputStream(s.getInputStream());
            ObjectInputStream oin = new ObjectInputStream(s.getInputStream());
-            while (true) {
+            while (!s.isClosed()) {
                 Message received = (Message) oin.readObject();
                // StringTokenizer st = new StringTokenizer(received);
                // type = st.nextToken();
@@ -53,7 +53,13 @@ public class Slave {
                         break;
                 }
             }
-        }catch(Exception e){
+
+            System.out.println("SLAVE: Socket is closed... finished");
+        }catch (EOFException e){
+            System.out.println("SLAVE: conenction reset ... finished");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
     }

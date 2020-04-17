@@ -72,6 +72,21 @@ import java.util.StringTokenizer;
                 Thread.sleep(1000);
             }
 
+            //cleanup
+            System.out.println("Server is doing cleanup...");
+            server.cleanupConnections();
+            System.out.println("finished operations");
+
+        }
+
+        private void cleanupConnections(){
+            for(Client c: clients.values()){
+                try {
+                    c.cleanup();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
 
         private boolean getFinished() {

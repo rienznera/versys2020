@@ -56,7 +56,7 @@ public class Client extends Thread{
 
                         case RES:
                             String id = String.valueOf(received.getId());
-                            String resultFromSlave = received.getData().toString();
+                            String resultFromSlave = new String(received.getData());
                             System.out.println("slave with id : "+id+" has sent result : "+resultFromSlave);
                             server.getClientResult(this.getClientId(), received);
                             break;
@@ -100,5 +100,9 @@ public class Client extends Thread{
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void cleanup() throws IOException {
+        this.m_connection.close();
     }
 }
