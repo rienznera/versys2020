@@ -4,24 +4,24 @@ import java.io.Serializable;
 import java.util.Arrays;
 
 public class Message implements Serializable {
-    private MessageType messageType;
+    private Type type;
     private int id;
     private int length;
     private byte[] data;
 
-    public Message(MessageType messageType, int id, int length, byte[] data) {
-        this.messageType = messageType;
+    public Message(Type type, int id, int length, byte[] data) {
+        this.type = type;
         this.id = id;
         this.length = length;
         this.data = data;
     }
 
-    public MessageType getMessageType() {
-        return messageType;
+    public Type getType() {
+        return type;
     }
 
-    public void setMessageType(MessageType messageType) {
-        this.messageType = messageType;
+    public void setType(Type type) {
+        this.type = type;
     }
 
     public int getId() {
@@ -51,7 +51,7 @@ public class Message implements Serializable {
     @Override
     public String toString() {
         return "Message{" +
-                "messageType=" + messageType +
+                "type=" + type +
                 ", id=" + id +
                 ", length=" + length +
                 ", data=" + Arrays.toString(data) +

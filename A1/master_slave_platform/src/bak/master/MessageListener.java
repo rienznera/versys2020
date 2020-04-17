@@ -1,7 +1,6 @@
-package master;
+package bak.master;
 
 import messaging.Message;
-import messaging.MessageType;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
