@@ -23,6 +23,7 @@ import java.util.StringTokenizer;
         private static ArrayList<Socket> slaves = new ArrayList<Socket>();
         public static final int timeout_length = 100000000;
         private static HashMap<Integer, Client> clients = new HashMap<>();
+        private static HashMap<Integer, String> workpipe = new HashMap<>();
         public Server(){}
         public Server (Socket connection) {
             m_connection = connection;
@@ -65,8 +66,17 @@ import java.util.StringTokenizer;
                 //Send Work to Clients
                 server.sendExerciseToSlaves(10, 20);
 
-                while (!server.getFinished()) {
-                    Thread.sleep(1000);
+
+
+                while(!server.getFinished()) {
+                    Thread.sleep(10000);
+
+                    if (server.getFinished()) {
+                        System.out.println("alles fertig!");
+                    } else {
+                        System.out.println("not every client responded");
+                        server.reExecute();
+                    }
                 }
 
                 //cleanup
@@ -81,6 +91,22 @@ import java.util.StringTokenizer;
 
         }
 
+        private void reExecute() {
+            for(int i : workpipe.keySet()){
+                for(Client c : clients.values()){
+                    if (c.getStatus() == Type.RES){
+
+                        String work = workpipe.get(i);
+
+                        c.doWork(new Message(Type.EXE,0, work.getBytes().length, work.getBytes()));
+                        c.setStatus(Type.EXE);
+                        workpipe.put(c.getClientId(),work);
+                        workpipe.remove(i);
+                    }
+                }
+            }
+        }
+
         private void cleanupConnections(){
             for(Client c: clients.values()){
                 try {
@@ -92,7 +118,7 @@ import java.util.StringTokenizer;
         }
 
         private boolean getFinished() {
-            return this.finished;
+            return this.workpipe.isEmpty();
         }
 
         public void sendExerciseToSlaves(int a, int b){
@@ -101,6 +127,7 @@ import java.util.StringTokenizer;
                 String work = "1;2";
                 c.doWork(new Message(Type.EXE,0, work.getBytes().length, work.getBytes()));
                 clients.get(c.getClientId()).setStatus(Type.EXE);
+                workpipe.put(c.getClientId(), work);
             }
         }
 
@@ -113,17 +140,8 @@ import java.util.StringTokenizer;
         public synchronized void getClientResult(Integer clientId, Message received) {
             System.out.println("SERVER: got result from " + clientId);
             clients.get(clientId).setStatus(Type.RES);
-            boolean check = true;
-            for (Client c:clients.values()
-                 ){
-                if (c.getStatus() != Type.RES){
-                    check = false;
-                }
-            }
-            if (check){
-                this.finished = true;
-                System.out.println("SERVER: work is done !!");
-            }
+            workpipe.remove(clientId);
+            this.finished = workpipe.isEmpty();
 
         }
 

@@ -20,6 +20,7 @@ public class Slave {
     public static void main(String[] args) throws IOException {
         try {
             int id = Integer.parseInt(args[0]);
+            Boolean execute = Boolean.parseBoolean(args[1]);
             Socket s=new Socket("localhost", Server.service_port);
            // Slave slave = new Slave (id);
             ObjectOutputStream oout=new ObjectOutputStream(s.getOutputStream());
@@ -43,8 +44,9 @@ public class Slave {
                         Thread.sleep(3000);
                         //toreturn = "Result "+id+" "+result;
                         //toreturn = "Result "+id+" "+result;
-                        oout.writeObject(new Message(Type.RES, id, Integer.toString(result).getBytes().length,Integer.toString(result).getBytes()));
-
+                        if(execute) {
+                            oout.writeObject(new Message(Type.RES, id, Integer.toString(result).getBytes().length, Integer.toString(result).getBytes()));
+                        }
                         System.out.println("result sent");
                         break;
 
