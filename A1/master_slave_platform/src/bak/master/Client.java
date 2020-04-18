@@ -1,25 +1,25 @@
-package master;
+package bak.master;
 
-import messaging.MessageType;
+import messaging.Type;
 
 import java.net.Socket;
 
 public class Client {
-    private MessageType status;
+    private Type status;
     private int id;
     private Socket socket;
 
-    public Client(MessageType status, int id, Socket socket) {
+    public Client(Type status, int id, Socket socket) {
         this.status = status;
         this.id = id;
         this.socket = socket;
     }
 
-    public MessageType getStatus() {
+    public Type getStatus() {
         return status;
     }
 
-    public void setStatus(MessageType status) {
+    public void setStatus(Type status) {
         this.status = status;
     }
 
