@@ -1,17 +1,14 @@
-package master;
+package bak.master;
 
 import messaging.Message;
-import messaging.MessageType;
+import messaging.Type;
 
-import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 
 public class Master extends Thread implements Runnable
@@ -22,7 +19,7 @@ public class Master extends Thread implements Runnable
     private int port;
     private boolean running = false;
     private List<Client> clients;
-    private MessageType phase;
+    private Type phase;
     private ObjectOutputStream oos;
     private ObjectInputStream ois;
 
@@ -31,7 +28,7 @@ public class Master extends Thread implements Runnable
     {
         this.port = port;
         clients = new ArrayList<>();
-        phase = MessageType.INIT;
+        phase = Type.INIT;
     }
 
     public static void main( String[] args )
@@ -63,7 +60,7 @@ public class Master extends Thread implements Runnable
     public void registerClients()
     {
         try {
-            this.setPhase(MessageType.INIT);
+            this.setPhase(Type.INIT);
             serverSocket = new ServerSocket(port);
             this.start();
             Thread.sleep(20000);
@@ -83,13 +80,13 @@ public class Master extends Thread implements Runnable
     }
 
     public void informClients(){
-        this.setPhase(MessageType.EXE);
+        this.setPhase(Type.EXE);
        // this.start();
             try {
 
                 for(int i = 0; i< clients.size(); i++){
                     oos = new ObjectOutputStream(clients.get(i).getSocket().getOutputStream());
-                    oos.writeObject(new Message(MessageType.EXE, clients.get(i).getId(),0,null ));
+                    oos.writeObject(new Message(Type.EXE, clients.get(i).getId(),0,null ));
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -140,7 +137,7 @@ public class Master extends Thread implements Runnable
     public void handleMessage(Message message){
         switch (this.phase) {
             case INIT:
-                if (message.getMessageType() == MessageType.INIT && message.getId() > 0){
+                if (message.getType() == Type.INIT && message.getId() > 0){
                     addClient(message.getId(), socket);
                 }
                 break;
@@ -152,13 +149,13 @@ public class Master extends Thread implements Runnable
 
     }
 
-    public void setPhase(MessageType phase){
+    public void setPhase(Type phase){
         this.phase = phase;
     }
 
     public void addClient(int id, Socket socket){
 
-            clients.add(new Client(MessageType.INIT, id, socket));
+            clients.add(new Client(Type.INIT, id, socket));
             System.out.println("added client "+ id);
             if (clients.size()>=2){
                 stopServer();
