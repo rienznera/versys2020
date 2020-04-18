@@ -283,7 +283,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Slave 1">
+  <component name="RunManager" selected="Compound.slaves">
     <configuration name="Server" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="server.Server" />
       <module name="master_slave_platform" />
