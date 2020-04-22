@@ -5,25 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d70cdc81-3317-417b-835d-00b436849052" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/readme.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/master_slave_platform/bak/master/Client.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/master_slave_platform/bak/master/Master$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/master_slave_platform/bak/master/Master.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/master_slave_platform/bak/master/MessageListener.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/master_slave_platform/bak/slave/Slave$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/master_slave_platform/bak/slave/Slave.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/master_slave_platform/messaging/WorkObject.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/master_slave_platform/server/Client$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/master_slave_platform/server/Client$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/master_slave_platform/server/Client.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/master_slave_platform/server/Client.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/master_slave_platform/server/ConnectionListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/master_slave_platform/server/ConnectionListener.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/master_slave_platform/server/ConnectionWaiter.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/master_slave_platform/server/Server.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/master_slave_platform/server/Server.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/master_slave_platform/slave/Slave$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/master_slave_platform/slave/Slave$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/master_slave_platform/slave/Slave.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/master_slave_platform/slave/Slave.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/ConnectionListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/ConnectionListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/Server.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/slave/Slave.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/slave/Slave.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -78,13 +59,13 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="4" />
-          <entry key="java" value="7982" />
+          <entry key="java" value="8000" />
           <entry key="txt" value="224" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="7982" />
+          <entry key="JAVA" value="8000" />
           <entry key="PLAIN_TEXT" value="228" />
         </counts>
       </usages-collector>
@@ -116,11 +97,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/slave/Slave.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="221">
-              <caret line="23" column="53" selection-start-line="23" selection-start-column="53" selection-end-line="23" selection-end-column="53" />
+              <caret line="23" column="74" selection-start-line="23" selection-start-column="74" selection-end-line="23" selection-end-column="74" />
             </state>
           </provider>
         </entry>
@@ -130,11 +111,11 @@
           <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/readme.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="10" column="18" selection-start-line="10" selection-start-column="18" selection-end-line="10" selection-end-column="18" />
+            <state>
+              <caret column="20" lean-forward="true" selection-start-column="20" selection-end-column="20" />
             </state>
           </provider>
         </entry>
@@ -214,10 +195,10 @@
         <option value="$PROJECT_DIR$/src/messaging/WorkObject.java" />
         <option value="$PROJECT_DIR$/src/server/ConnectionWaiter.java" />
         <option value="$PROJECT_DIR$/src/server/Client.java" />
-        <option value="$PROJECT_DIR$/src/slave/Slave.java" />
         <option value="$PROJECT_DIR$/src/server/ConnectionListener.java" />
         <option value="$PROJECT_DIR$/src/server/Server.java" />
         <option value="$PROJECT_DIR$/src/readme.txt" />
+        <option value="$PROJECT_DIR$/src/slave/Slave.java" />
       </list>
     </option>
   </component>
@@ -310,7 +291,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1587578954018" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1587579212106" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RunDashboard">
@@ -445,7 +426,7 @@
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.26066098" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26066098" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -454,7 +435,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.329718" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32321042" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32321042" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4067245" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -682,13 +663,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/slave/Slave.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="23" column="53" selection-start-line="23" selection-start-column="53" selection-end-line="23" selection-end-column="53" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/server/ConnectionListener.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -715,8 +689,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/readme.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="18" selection-start-line="10" selection-start-column="18" selection-end-line="10" selection-end-column="18" />
+        <state>
+          <caret column="20" lean-forward="true" selection-start-column="20" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/slave/Slave.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="23" column="74" selection-start-line="23" selection-start-column="74" selection-end-line="23" selection-end-column="74" />
         </state>
       </provider>
     </entry>

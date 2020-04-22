@@ -21,7 +21,7 @@ public class Slave {
             try {
                 int id = Integer.parseInt(args[0]);
                 Boolean execute = Boolean.parseBoolean(args[2]);
-                Socket s=new Socket("localhost", 9009);
+                Socket s=new Socket("localhost", Integer.parseInt(args[1]));
                 System.out.println("Client with id:" + id + " is connected = " + s.isConnected());
                 ObjectOutputStream oout=new ObjectOutputStream(s.getOutputStream());
                 //Register Slave
