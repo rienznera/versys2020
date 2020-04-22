@@ -7,10 +7,9 @@ import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
-import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.StringTokenizer;
+
 
     public class Server  {
 
@@ -18,7 +17,7 @@ import java.util.StringTokenizer;
         private Socket m_connection;
         private static int number_of_connections = 0;
         public static final int max_connections = 2;
-        public static final int service_port = 9056;
+        public static final int service_port = 9001;
         public boolean finished = false;
         private static ArrayList<Socket> slaves = new ArrayList<Socket>();
         public static final int timeout_length = 100000000;
@@ -72,7 +71,7 @@ import java.util.StringTokenizer;
                     Thread.sleep(10000);
 
                     if (server.getFinished()) {
-                        System.out.println("alles fertig!");
+                        System.out.println("everything done!");
                     } else {
                         System.out.println("not every client responded");
                         server.reExecute();
@@ -122,9 +121,10 @@ import java.util.StringTokenizer;
         }
 
         public void sendExerciseToSlaves(int a, int b){
-            for (Client c:clients.values()
-            ) {
-                String work = "1;2";
+            System.out.println("Sending work to slaves: " + a + "x" + b);
+            for (Client c : clients.values())
+            {
+                String work = a + ";" + b;
                 c.doWork(new Message(Type.EXE,0, work.getBytes().length, work.getBytes()));
                 clients.get(c.getClientId()).setStatus(Type.EXE);
                 workpipe.put(c.getClientId(), work);
@@ -138,11 +138,10 @@ import java.util.StringTokenizer;
         }
 
         public synchronized void getClientResult(Integer clientId, Message received) {
-            System.out.println("SERVER: got result from " + clientId);
+            System.out.println("SERVER: got result from client: " + clientId);
             clients.get(clientId).setStatus(Type.RES);
             workpipe.remove(clientId);
             this.finished = workpipe.isEmpty();
-
         }
 
         public void timeout() {

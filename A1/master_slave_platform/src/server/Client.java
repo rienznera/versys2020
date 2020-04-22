@@ -40,12 +40,10 @@ public class Client extends Thread{
             DataOutputStream dos = new DataOutputStream(out);
              oos = new ObjectOutputStream(out);
             Message received;
-            String type;
+
             try {
                 while (true) {
                     received = (Message) ois.readObject();
-                    //StringTokenizer st = new StringTokenizer(received);
-                    //type = st.nextToken();
 
                     switch (received.getType()) {
                         case INIT:
