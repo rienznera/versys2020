@@ -17,12 +17,13 @@ public class ConnectionListener extends Thread{
     public void run()
     {
         try {
+
             while (active) {
                 System.out.println("Waiting for slaves to connect...");
                 Socket connection = serverSocket.accept();
 
                 System.out.println("New slave connected");
-                if (server.getNumber_of_connections() > server.max_connections - 1) {
+                if (server.getNumber_of_connections() > server.getMax_connections() - 1) {
 
                     System.out.println("Too many Slaves..");
 

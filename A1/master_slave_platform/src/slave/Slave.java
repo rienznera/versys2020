@@ -15,13 +15,13 @@ public class Slave {
     private static int b;
     public Slave(){};
     public static void main(String[] args) throws IOException {
-        if(args.length < 2) {
+        if(args.length < 3) {
             System.out.println("ERROR!!! no correct start parameters!");
         } else {
             try {
                 int id = Integer.parseInt(args[0]);
-                Boolean execute = Boolean.parseBoolean(args[1]);
-                Socket s=new Socket("localhost", Server.service_port);
+                Boolean execute = Boolean.parseBoolean(args[2]);
+                Socket s=new Socket("localhost", 9009);
                 System.out.println("Client with id:" + id + " is connected = " + s.isConnected());
                 ObjectOutputStream oout=new ObjectOutputStream(s.getOutputStream());
                 //Register Slave

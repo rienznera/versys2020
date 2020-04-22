@@ -7,7 +7,6 @@ import java.io.*;
 import java.net.Socket;
 import java.net.SocketException;
 
-import static server.Server.timeout_length;
 
 public class Client extends Thread{
     private Socket m_connection;
@@ -22,7 +21,7 @@ public class Client extends Thread{
         m_connection = connection;
 
         try {
-            m_connection.setSoTimeout (timeout_length);
+            m_connection.setSoTimeout (server.getTimeout_length());
         } catch (SocketException se) {
             System.err.println ("Unable to set socket option SO_TIMEOUT");
         }

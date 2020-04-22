@@ -16,14 +16,20 @@ import java.util.HashMap;
         private static boolean active;
         private Socket m_connection;
         private static int number_of_connections = 0;
-        public static final int max_connections = 2;
-        public static final int service_port = 9001;
+        private static int max_connections = 2;
+        private static  int service_port = 9001;
         public boolean finished = false;
         private static ArrayList<Socket> slaves = new ArrayList<Socket>();
-        public static final int timeout_length = 100000000;
+        private static  int timeout_length = 100000000;
+        private static int responseTimeout;
         private static HashMap<Integer, Client> clients = new HashMap<>();
         private static HashMap<Integer, String> workpipe = new HashMap<>();
         public Server(){}
+        public Server(int port , int maxSlaves, int timeout){
+            this.service_port = port;
+            this.max_connections = maxSlaves;
+            this.responseTimeout = timeout;
+        }
         public Server (Socket connection) {
             m_connection = connection;
 
@@ -40,20 +46,29 @@ import java.util.HashMap;
             number_of_connections++;
         }
 
+        public static int getMax_connections() {
+            return max_connections;
+        }
+
+        public static int getTimeout_length() {
+            return timeout_length;
+        }
 
         public static int getNumber_of_connections() {
             return number_of_connections;
         }
 
-        public static void setNumber_of_connections(int number_of_connections) {
-            Server.number_of_connections = number_of_connections;
+        public static int getResponseTimeout() {
+            return responseTimeout;
         }
 
         public static void main(String args[])
         {
             try {
-                ServerSocket serverSocket = new ServerSocket(service_port);
-                Server server = new Server();
+                int port = Integer.parseInt(args[0]);
+                ServerSocket serverSocket = new ServerSocket(port);
+                System.out.println("Server listening on port: "+port);
+                Server server = new Server(port, Integer.parseInt(args[1]), Integer.parseInt(args[2]));
                 //Connecting slaves
 
                 ConnectionListener cl = new ConnectionListener(serverSocket, server);
@@ -68,7 +83,7 @@ import java.util.HashMap;
 
 
                 while(!server.getFinished()) {
-                    Thread.sleep(10000);
+                    Thread.sleep(server.getResponseTimeout());
 
                     if (server.getFinished()) {
                         System.out.println("everything done!");
